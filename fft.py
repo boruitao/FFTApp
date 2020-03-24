@@ -4,8 +4,9 @@ import matplotlib.colors
 import cv2
 from matplotlib.colors import LogNorm
 from matplotlib import pyplot as plt
-from fft_method import DFT, I_DFT, FFT_2D, I_FFT, DFT_2D, FFT_2D, I_DFT_2D, I_FFT_2D
+from fft_method import DFT, I_DFT, FFT_2D, I_FFT, DFT_2D, FFT, I_DFT_2D, I_FFT_2D
 from compress import percentile_threshold, save_fft
+from runtime_exp import get_runtime_plot
 def nextPowerOf2(n):
     count = 0
     if (n and not(n & (n - 1))):
@@ -113,7 +114,7 @@ def main(argv):
             print ('Error\tplease specify the image which you wish to compress')
             sys.exit(2)
     elif mode == "4":
-        print (4)
+        get_runtime_plot()
     print ('Input file is "', mode)
 
 if __name__ == "__main__":

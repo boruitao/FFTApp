@@ -1,6 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from fft_method import DFT, I_DFT, FFT_2D, I_FFT, DFT_2D, FFT_2D, I_DFT_2D, I_FFT_2D
+from fft_method import DFT, I_DFT, FFT_2D, I_FFT, DFT_2D, FFT, I_DFT_2D, I_FFT_2D
 import scipy.sparse
 
 def plot_images(resized_img, f1, f2, f3, f4, f5):
