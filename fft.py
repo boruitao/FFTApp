@@ -5,16 +5,15 @@ import cv2
 from matplotlib.colors import LogNorm
 from matplotlib import pyplot as plt
 from fft_method import DFT, I_DFT, FFT_2D, I_FFT, DFT_2D, FFT, I_DFT_2D, I_FFT_2D
-from compress import percentile_threshold, save_fft
+from compress import percentile_threshold, use_high_low_freq
 from runtime_exp import get_runtime_plot
-def nextPowerOf2(n):
-    count = 0
+def nextPower2(n):
+    res = 1
     if (n and not(n & (n - 1))):
         return n
-    while( n != 0):
-        n >>= 1
-        count += 1
-    return 1 << count
+    while(res < n):
+        res <<= 1
+    return res
 
 def main(argv):
     mode = ''
@@ -35,8 +34,8 @@ def main(argv):
             if img is None:
                 print ('Error\tplease specify a valid path to the image')
                 sys.exit(2)
-            width = nextPowerOf2(img.shape[1])
-            height = nextPowerOf2(img.shape[0])
+            width = nextPower2(img.shape[1])
+            height = nextPower2(img.shape[0])
             # resize the image so that the size is power of 2
             dim = (width, height)
             resized_img = cv2.resize(img, dim)
@@ -63,12 +62,11 @@ def main(argv):
             if img is None:
                 print ('Error\tplease specify a valid path to the image')
                 sys.exit(2)
-            width = nextPowerOf2(img.shape[1])
-            height = nextPowerOf2(img.shape[0])
+            width = nextPower2(img.shape[1])
+            height = nextPower2(img.shape[0])
             # resize the image so that the size is power of 2
             dim = (width, height)
             resized_img = cv2.resize(img, dim)
-            #print(np.allclose(FFT_2D(resized_img), np.fft.fft2(resized_img)))
 
             # get the Fast Fourier Transform
             f = FFT_2D(resized_img)
@@ -85,6 +83,7 @@ def main(argv):
             
             # get the inverse Fast Fourier Transform
             denoised_img = I_FFT_2D(f)
+            print(np.allclose(I_FFT_2D(f), np.fft.ifft2(f)))
 
             # plot the 1 by 2 subplot of the original image and the denoised image
             plt.subplot(121)
@@ -102,14 +101,15 @@ def main(argv):
             if img is None:
                 print ('Error\tplease specify a valid path to the image')
                 sys.exit(2)
-            width = nextPowerOf2(img.shape[1])
-            height = nextPowerOf2(img.shape[0])
+            width = nextPower2(img.shape[1])
+            height = nextPower2(img.shape[0])
             # resize the image so that the size is power of 2
             dim = (width, height)
             resized_img = cv2.resize(img, dim)
             # get the Fast Fourier Transform
             f = FFT_2D(resized_img)
-            percentile_threshold(resized_img, f)
+            #percentile_threshold(resized_img, f)
+            use_high_low_freq(resized_img, f)
         else:
             print ('Error\tplease specify the image which you wish to compress')
             sys.exit(2)

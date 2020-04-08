@@ -17,28 +17,23 @@ def I_DFT_unscaled(x):
 
 def FFT(x):
     N = len(x)
-    if N % 2 > 0:
-        raise ValueError("size of x must be a power of 2")
-    elif N <= 32:
+    if N <= 32:
         return DFT(x)
     else:
-        X_even = FFT([x[i] for i in range(0, N, 2)])
-        X_odd = FFT([x[i] for i in range(1, N, 2)])
-        
-        factor = np.exp(-2j * np.pi * np.arange(N) / N)
-        return np.concatenate([X_even + factor[:N // 2] * X_odd, X_even + factor[N // 2:] * X_odd])
+        ei = np.exp(-2j * np.pi * np.arange(N) / N)
+        even = FFT([x[i] for i in range(0, N, 2)])
+        odd = FFT([x[i] for i in range(1, N, 2)])
+        return np.concatenate([even + ei[:N // 2] * odd, even + ei[N // 2:] * odd])
     
 def I_FFT_unscaled(x):
     N = len(x)
-    if N % 2 > 0:
-        raise ValueError("size of x must be a power of 2")
-    elif N <= 32:
+    if N <= 32:
         return I_DFT_unscaled(x)
     else:
-        X_even = I_FFT_unscaled(x[::2])
-        X_odd = I_FFT_unscaled(x[1::2])
-        factor = np.exp(2j * np.pi * np.arange(N) / N)
-        return np.concatenate([X_even + factor[:N // 2] * X_odd, X_even + factor[N // 2:] * X_odd])
+        ei = np.exp(2j * np.pi * np.arange(N) / N)
+        even = I_FFT_unscaled(x[::2])
+        odd = I_FFT_unscaled(x[1::2])
+        return np.concatenate([even + ei[:N // 2] * odd, even + ei[N // 2:] * odd])
 
 def I_FFT(x):
     N = len(x)
@@ -49,19 +44,22 @@ def I_DFT(x):
     return I_DFT_unscaled(x) / N
 
 def DFT_2D(matrix):
-    fftRows = np.array([DFT(row) for row in matrix])
-    return np.array([DFT(row) for row in fftRows.transpose()]).transpose()
+    return FT_2D(matrix, DFT)
 
 def FFT_2D(matrix):
-    fftRows = np.array([FFT(row) for row in matrix])
-    return np.array([FFT(row) for row in fftRows.transpose()]).transpose()
+    return FT_2D(matrix, FFT)
 
 def I_DFT_2D(matrix):
-    N, M = matrix.shape
-    fftRows = np.array([I_DFT_unscaled(row) for row in matrix])
-    return np.array([I_DFT_unscaled(row) for row in fftRows.transpose()]).transpose() / N / M
+    return I_FT_2D(matrix, I_DFT_unscaled)
 
 def I_FFT_2D(matrix):
+    return I_FT_2D(matrix, I_FFT_unscaled)
+
+def FT_2D(matrix, FT):
+    rows = np.array([FT(row) for row in matrix])
+    return np.array([FT(row) for row in rows.transpose()]).transpose()
+
+def I_FT_2D(matrix, IFT_unscaled):
     N, M = matrix.shape
-    fftRows = np.array([I_FFT_unscaled(row) for row in matrix])
-    return np.array([I_FFT_unscaled(row) for row in fftRows.transpose()]).transpose() / N / M
+    rows = np.array([IFT_unscaled(row) for row in matrix])
+    return np.array([IFT_unscaled(row) for row in rows.transpose()]).transpose() / N / M

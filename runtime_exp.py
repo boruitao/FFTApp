@@ -2,7 +2,6 @@ import time
 import numpy as np
 from fft_method import DFT, I_DFT, FFT_2D, I_FFT, DFT_2D, FFT, I_DFT_2D, I_FFT_2D
 import matplotlib.pyplot as plt
-from ffff import fft2d
 
 def get_single_runtime(x, y, ft2d):
     img = np.random.rand(x, y)
