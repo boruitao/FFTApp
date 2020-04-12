@@ -28,7 +28,7 @@ def get_means_stds(problem_sizes, ft2d):
     return means, stds
 
 def get_runtime_plot():
-    problem_sizes = [10,11,12,13,14,15,16,17,18]
+    problem_sizes = [10,11,12,13,14,15,16,17,18,19,20]
     print('problem sizes (2 to the power):', problem_sizes)
     print()
 

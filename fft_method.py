@@ -15,9 +15,16 @@ def I_DFT_unscaled(x):
     M = np.exp(2j * np.pi * k * n / N)
     return np.dot(M, x)
 
+# Recursive step: 
+# 1. Take the FFT of even part and the odd part of x vector
+# 2. Compute the multiplier matrix e^(-2i * pi * k / N)
+# 3. Sum the odd part and the even part by concatenating
+#    even + (odd * first have of the multiplier)
+#    and 
+#    even + (odd * second have of the multiplier)
 def FFT(x):
     N = len(x)
-    if N <= 32:
+    if N <= 16:
         return DFT(x)
     else:
         ei = np.exp(-2j * np.pi * np.arange(N) / N)
@@ -27,7 +34,7 @@ def FFT(x):
     
 def I_FFT_unscaled(x):
     N = len(x)
-    if N <= 32:
+    if N <= 16:
         return I_DFT_unscaled(x)
     else:
         ei = np.exp(2j * np.pi * np.arange(N) / N)
