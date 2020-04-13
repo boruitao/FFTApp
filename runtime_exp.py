@@ -22,13 +22,13 @@ def get_means_stds(problem_sizes, ft2d):
     for i in problem_sizes:
         x = int(i / 2)
         y = i-x
-        mean, std = get_mean_std(2**x, 2**y, FFT_2D)
+        mean, std = get_mean_std(2**x, 2**y, ft2d)
         means.append(mean)
         stds.append(std)
     return means, stds
 
 def get_runtime_plot():
-    problem_sizes = [10,11,12,13,14,15,16,17,18,19,20]
+    problem_sizes = [10,11,12,13,14,15,16,17,18]
     print('problem sizes (2 to the power):', problem_sizes)
     print()
 
