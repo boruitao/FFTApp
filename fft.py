@@ -88,8 +88,9 @@ def main(argv):
             # plot the 1 by 2 subplot of the original image and the denoised image
             plt.subplot(121)
             plt.imshow(resized_img, cmap = 'gray')
-            plt.title('Original Image'), plt.xticks([]), plt.yticks([])
-            plt.subplot(122), plt.imshow(denoised_img.real, cmap = 'gray')
+            plt.title('Original Image')
+            plt.subplot(122)
+            plt.imshow(denoised_img.real, cmap = 'gray')
             plt.title('Denoised Image')
             plt.show()
         else:
@@ -115,7 +116,9 @@ def main(argv):
             sys.exit(2)
     elif mode == "4":
         get_runtime_plot()
-    print ('Input file is "', mode)
+    else:
+        print ('Error\tplease specify the mode as an integer from 1 to 4')
+        sys.exit(2)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
