@@ -31,7 +31,7 @@ def percentile_threshold(resized_img, f):
     
     plot_images(resized_img, if1, if2, if3, if4, if5)
     save_matrix(f, f1, f2, f3, f4, f5)
-    print_num_nonzero(f1, f2, f3, f4, f5)
+    print_num_nonzero(f, f1, f2, f3, f4, f5)
 
 def use_high_low_freq(resized_img, f):
     # 19% compression
@@ -56,7 +56,7 @@ def use_high_low_freq(resized_img, f):
     
     plot_images(resized_img, if1, if2, if3, if4, if5)
     save_matrix(f, f1, f2, f3, f4, f5)
-    print_num_nonzero(f1, f2, f3, f4, f5)
+    print_num_nonzero(f, f1, f2, f3, f4, f5)
 
 def keep_high_low(f, n):
     f1 = f.copy()
@@ -106,7 +106,8 @@ def save_matrix(f, f1, f2, f3, f4, f5):
     save_fft(f4, '76%_fft.npz')
     save_fft(f5, '95%_fft.npz')
 
-def print_num_nonzero(f1, f2, f3, f4, f5):
+def print_num_nonzero(f, f1, f2, f3, f4, f5):
+    print ("number of non zeros in 0% compression fft: ", np.count_nonzero(f))
     print ("number of non zeros in 19% compression fft: ", np.count_nonzero(f1))
     print ("number of non zeros in 38% compression fft: ", np.count_nonzero(f2))
     print ("number of non zeros in 57% compression fft: ", np.count_nonzero(f3))

@@ -39,7 +39,7 @@ def main(argv):
             # resize the image so that the size is power of 2
             dim = (width, height)
             resized_img = cv2.resize(img, dim)
-            print(np.allclose(FFT_2D(resized_img), np.fft.fft2(resized_img)))
+            # print(np.allclose(FFT_2D(resized_img), np.fft.fft2(resized_img)))
 
             # get the Fast Fourier Transform
             f = FFT_2D(resized_img)
