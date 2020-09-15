@@ -16,10 +16,10 @@ frequencies and then displayed.
 
 #### Example output for each mode: 
 Mode 1: the image is converted into its FFT and displayed
-![Image of mode1](https://github.com/boruitao/FFT/tree/master/images/mode1.png)
+![Image of mode1](https://github.com/boruitao/FFT/blob/master/images/mode1.png)
 
 Mode 2: the image is denoised
-![Image of mode2](https://github.com/boruitao/FFT/tree/master/images/mode2.png)
+![Image of mode2](https://github.com/boruitao/FFT/blob/master/images/mode2.png)
 
 Mode 3: the image compressed using different schemes
-![Image of mode3](https://github.com/boruitao/FFT/tree/master/images/mode3.png)
+![Image of mode3](https://github.com/boruitao/FFT/blob/master/images/mode3.png)
